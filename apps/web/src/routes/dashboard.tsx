@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import SignInForm from "@/components/sign-in-form";
 import SignUpForm from "@/components/sign-up-form";
-import UserMenu from "@/components/user-menu";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,
@@ -21,7 +20,6 @@ function RouteComponent() {
         <div>
           <h1>Dashboard</h1>
           <p>privateData: {privateData?.message}</p>
-          <UserMenu />
         </div>
       </Authenticated>
       <Unauthenticated>
