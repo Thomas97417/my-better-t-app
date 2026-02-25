@@ -2,13 +2,9 @@ import { Link } from "@tanstack/react-router";
 import { Authenticated, Unauthenticated } from "convex/react";
 
 import UserMenu from "./user-menu";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Header() {
-  const links = [
-    { to: "/", label: "Home" },
-    { to: "/dashboard", label: "Dashboard" },
-  ] as const;
-
   return (
     <div>
       <div className="flex flex-row items-center justify-between px-2 py-1">
@@ -25,6 +21,7 @@ export default function Header() {
           <Unauthenticated>
             <Link to="/sign-in">Login</Link>
           </Unauthenticated>
+          <ModeToggle />
         </div>
       </div>
       <hr />
