@@ -5,32 +5,40 @@ import UserMenu from "./user-menu";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 
+const linkStyles =
+  "text-sm text-muted-foreground transition-colors hover:text-foreground [&.active]:text-foreground [&.active]:font-medium";
+
 export default function Header() {
   return (
-    <div>
-      <div className="flex flex-row items-center justify-between px-2 py-1">
-        <nav className="flex gap-4 text-lg">
-          <Link to="/">Home</Link>
-          <Authenticated>
-            <Link to="/dashboard">Dashboard</Link>
-          </Authenticated>
-          <Authenticated>
-            <Link to="/settings">Settings</Link>
-          </Authenticated>
-        </nav>
+    <header className="border-b">
+      <div className="flex h-12 items-center justify-between px-4">
+        <div className="flex items-center gap-6">
+          <Link to="/" className="text-base font-semibold tracking-tight">
+            Toma Stack
+          </Link>
+          <nav className="flex items-center gap-4">
+            <Authenticated>
+              <Link to="/dashboard" className={linkStyles}>
+                Dashboard
+              </Link>
+              <Link to="/settings" className={linkStyles}>
+                Settings
+              </Link>
+            </Authenticated>
+          </nav>
+        </div>
         <div className="flex items-center gap-2">
           <ModeToggle />
           <Authenticated>
             <UserMenu />
           </Authenticated>
           <Unauthenticated>
-            <Button variant="outline">
-              <Link to="/sign-in">Login</Link>
+            <Button variant="outline" size="sm" render={<Link to="/sign-in" />}>
+              Login
             </Button>
           </Unauthenticated>
         </div>
       </div>
-      <hr />
-    </div>
+    </header>
   );
 }
