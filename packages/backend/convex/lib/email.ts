@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { RESEND_API_KEY } from "../env";
+import { EMAIL_FROM, RESEND_API_KEY } from "../env";
 
 const resend = new Resend(RESEND_API_KEY);
 
@@ -12,8 +12,9 @@ export async function sendEmail({
   subject: string;
   text: string;
 }) {
+  console.log("Before sending email");
   await resend.emails.send({
-    from: "no-reply@yourdomain.com",
+    from: EMAIL_FROM,
     to,
     subject,
     text,

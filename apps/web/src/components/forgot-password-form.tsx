@@ -18,11 +18,15 @@ export default function ForgotPasswordForm() {
       email: "",
     },
     onSubmit: async ({ value }) => {
-      await authClient.requestPasswordReset({
-        email: value.email,
-        redirectTo: "/reset-password",
-      });
-      setSent(true);
+      try {
+        await authClient.requestPasswordReset({
+          email: value.email,
+          redirectTo: "/reset-password",
+        });
+        setSent(true);
+      } catch {
+        toast.error("Something went wrong. Please try again.");
+      }
     },
     validators: {
       onSubmit: z.object({
@@ -72,6 +76,7 @@ export default function ForgotPasswordForm() {
                   id={field.name}
                   name={field.name}
                   type="email"
+                  placeholder="john.doe@example.com"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}

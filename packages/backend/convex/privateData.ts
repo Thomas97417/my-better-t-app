@@ -4,8 +4,8 @@ import { authComponent } from "./auth";
 export const get = query({
   args: {},
   handler: async (ctx) => {
-    const authUser = await authComponent.safeGetAuthUser(ctx);
-    if (!authUser) {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
       return {
         message: "Not authenticated",
       };
