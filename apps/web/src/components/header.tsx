@@ -3,7 +3,7 @@ import { Authenticated, Unauthenticated } from "convex/react";
 
 import UserMenu from "./user-menu";
 import { ModeToggle } from "./mode-toggle";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 
 const linkStyles =
   "text-sm text-muted-foreground transition-colors hover:text-foreground [&.active]:text-foreground [&.active]:font-medium";
@@ -33,9 +33,9 @@ export default function Header() {
             <UserMenu />
           </Authenticated>
           <Unauthenticated>
-            <Button variant="outline" size="sm" render={<Link to="/sign-in" />}>
+            <Link to="/sign-in" className={buttonVariants({ variant: "outline" })}>
               Login
-            </Button>
+            </Link>
           </Unauthenticated>
         </div>
       </div>

@@ -73,25 +73,27 @@ function RootDocument() {
       initialToken={context.token}
     >
       <html lang="en">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          disableTransitionOnChange
-          storageKey="vite-ui-theme"
-        >
-          <head>
-            <HeadContent />
-          </head>
-          <body>
+        <head>
+          <HeadContent />
+        </head>
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            disableTransitionOnChange
+            storageKey="vite-ui-theme"
+          >
             <div className="grid h-svh grid-rows-[auto_1fr]">
               <Header />
-              <Outlet />
+              <div className="overflow-y-auto">
+                <Outlet />
+              </div>
             </div>
             <Toaster richColors />
             <TanStackRouterDevtools position="bottom-left" />
             <Scripts />
-          </body>
-        </ThemeProvider>
+          </ThemeProvider>
+        </body>
       </html>
     </ConvexBetterAuthProvider>
   );
