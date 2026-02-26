@@ -72,7 +72,7 @@ function RootDocument() {
       authClient={authClient}
       initialToken={context.token}
     >
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <head>
           <HeadContent />
         </head>
