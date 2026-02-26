@@ -4,7 +4,7 @@ import { useQuery } from "convex/react";
 
 import ChangePasswordCard from "@/components/settings/change-password-card";
 import DeleteAccountCard from "@/components/settings/delete-account-card";
-import EmailCard from "@/components/settings/email-card";
+import EmailCard from "@/components/settings/update-email-card";
 import UpdateNameCard from "@/components/settings/update-name-card";
 
 export const Route = createFileRoute("/settings")({

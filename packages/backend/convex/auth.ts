@@ -21,6 +21,12 @@ function createAuth(ctx: GenericCtx<DataModel>) {
       enabled: true,
       requireEmailVerification: false,
     },
+    user: {
+      changeEmail: {
+        enabled: true,
+        updateEmailWithoutVerification: true,
+      },
+    },
     plugins: [
       convex({
         authConfig,

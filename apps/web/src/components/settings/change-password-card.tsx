@@ -1,4 +1,6 @@
 import { useForm } from "@tanstack/react-form";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -6,6 +8,7 @@ import { authClient } from "@/lib/auth-client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 import {
   SettingsCard,
@@ -13,6 +16,48 @@ import {
   SettingsCardFooter,
   SettingsCardHeader,
 } from "./settings-card";
+
+function PasswordInput({
+  id,
+  placeholder,
+  autoComplete,
+  value,
+  onBlur,
+  onChange,
+}: {
+  id: string;
+  placeholder: string;
+  autoComplete: string;
+  value: string;
+  onBlur: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div className="relative w-80">
+      <Input
+        id={id}
+        type={visible ? "text" : "password"}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        required
+        value={value}
+        onBlur={onBlur}
+        onChange={onChange}
+        className="bg-transparent pr-9"
+      />
+      <button
+        type="button"
+        tabIndex={-1}
+        className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-colors"
+        onClick={() => setVisible((v) => !v)}
+      >
+        {visible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+      </button>
+    </div>
+  );
+}
 
 export default function ChangePasswordCard() {
   const form = useForm({
@@ -25,7 +70,7 @@ export default function ChangePasswordCard() {
       const { error } = await authClient.changePassword({
         currentPassword: value.currentPassword,
         newPassword: value.newPassword,
-        revokeOtherSessions: true,
+        revokeOtherSessions: false,
       });
       if (error) {
         toast.error(error.message);
@@ -69,15 +114,14 @@ export default function ChangePasswordCard() {
               name="currentPassword"
               children={(field) => (
                 <div className="flex flex-col gap-1">
-                  <Input
-                    type="password"
+                  <Label htmlFor="currentPassword">Current password</Label>
+                  <PasswordInput
+                    id="currentPassword"
                     placeholder="Current password"
                     autoComplete="current-password"
-                    required
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="w-80 bg-transparent"
                   />
                   {field.state.meta.errors.map((error) => (
                     <p
@@ -94,15 +138,14 @@ export default function ChangePasswordCard() {
               name="newPassword"
               children={(field) => (
                 <div className="flex flex-col gap-1">
-                  <Input
-                    type="password"
+                  <Label htmlFor="newPassword">New password</Label>
+                  <PasswordInput
+                    id="newPassword"
                     placeholder="New password"
                     autoComplete="new-password"
-                    required
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="w-80 bg-transparent"
                   />
                   {field.state.meta.errors.map((error) => (
                     <p
@@ -119,15 +162,14 @@ export default function ChangePasswordCard() {
               name="confirmPassword"
               children={(field) => (
                 <div className="flex flex-col gap-1">
-                  <Input
-                    type="password"
+                  <Label htmlFor="confirmPassword">Confirm new password</Label>
+                  <PasswordInput
+                    id="confirmPassword"
                     placeholder="Confirm new password"
                     autoComplete="new-password"
-                    required
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="w-80 bg-transparent"
                   />
                   {field.state.meta.errors.map((error) => (
                     <p

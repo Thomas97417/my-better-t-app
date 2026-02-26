@@ -1,10 +1,3 @@
-import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
-import z from "zod";
-
-import { authClient } from "@/lib/auth-client";
-
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import {
@@ -14,17 +7,22 @@ import {
   SettingsCardHeader,
 } from "./settings-card";
 import { Label } from "../ui/label";
+import { useForm } from "@tanstack/react-form";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
+import z from "zod";
+import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 
-export default function UpdateNameCard({ name }: { name: string }) {
+export default function UpdateEmailCard({ email }: { email: string }) {
   const form = useForm({
-    defaultValues: { name },
+    defaultValues: { newEmail: email },
     onSubmit: async ({ value }) => {
-      await authClient.updateUser(
-        { name: value.name },
+      await authClient.changeEmail(
+        { newEmail: value.newEmail },
         {
           onSuccess: () => {
-            toast.success("Name updated successfully.");
+            toast.success("Email updated successfully.");
           },
           onError: (error) => {
             toast.error(error.error.message);
@@ -34,11 +32,10 @@ export default function UpdateNameCard({ name }: { name: string }) {
     },
     validators: {
       onSubmit: z.object({
-        name: z.string().min(2, "Name must be at least 2 characters."),
+        newEmail: z.string().email("Invalid email address"),
       }),
     },
   });
-
   return (
     <form
       onSubmit={(e) => {
@@ -50,16 +47,16 @@ export default function UpdateNameCard({ name }: { name: string }) {
       <SettingsCard>
         <SettingsCardContent>
           <SettingsCardHeader
-            title="Your Name"
-            description="This is the name displayed on your profile."
+            title="Email Address"
+            description="The email address associated with your account."
           />
           <form.Field
-            name="name"
+            name="newEmail"
             children={(field) => (
               <div className="flex flex-col gap-1">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="newEmail">Email</Label>
                 <Input
-                  placeholder="Name"
+                  id="newEmail"
                   autoComplete="off"
                   required
                   value={field.state.value}
@@ -78,7 +75,7 @@ export default function UpdateNameCard({ name }: { name: string }) {
         </SettingsCardContent>
         <SettingsCardFooter>
           <p className="text-sm text-muted-foreground">
-            Please use 32 characters at maximum.
+            Please enter a valid email address.
           </p>
           <form.Subscribe>
             {(state) => (
@@ -88,7 +85,7 @@ export default function UpdateNameCard({ name }: { name: string }) {
                 disabled={!state.canSubmit || state.isSubmitting}
               >
                 {state.isSubmitting ? (
-                  <Loader2 className="animate-spin" />
+                  <Loader2 className="animate-spin size-4" />
                 ) : (
                   "Save"
                 )}
