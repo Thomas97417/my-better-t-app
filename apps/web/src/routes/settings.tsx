@@ -2,6 +2,7 @@ import { api } from "@my-better-t-app/backend/convex/_generated/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useQuery } from "convex/react";
 
+import ChangePasswordCard from "@/components/settings/change-password-card";
 import DeleteAccountCard from "@/components/settings/delete-account-card";
 import EmailCard from "@/components/settings/email-card";
 import UpdateNameCard from "@/components/settings/update-name-card";
@@ -30,6 +31,7 @@ function RouteComponent() {
       </div>
       <UpdateNameCard name={user.name} />
       <EmailCard email={user.email} />
+      <ChangePasswordCard />
       <DeleteAccountCard />
     </div>
   );
