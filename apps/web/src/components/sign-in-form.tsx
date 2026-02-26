@@ -117,9 +117,13 @@ export default function SignInForm() {
         </form.Subscribe>
       </form>
 
-      <div className="mt-4 text-center">
-        <Link to="/sign-up" className="text-indigo-600 hover:text-indigo-800">
-          Need an account? Sign Up
+      <div className="mt-2 text-center">
+        <span className="text-sm text-muted-foreground">Need an account? </span>
+        <Link
+          to="/sign-up"
+          className="hover:underline text-sm text-muted-foreground hover:text-foreground cursor-pointer"
+        >
+          <span className="font-bold">Sign Up</span>
         </Link>
       </div>
     </div>

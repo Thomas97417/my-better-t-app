@@ -1,6 +1,6 @@
-import { api } from "@my-better-t-app/backend/convex/_generated/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useQuery } from "convex/react";
+import { api } from "@my-better-t-app/backend/convex/_generated/api";
 
 export const Route = createFileRoute("/dashboard")({
   beforeLoad: async ({ context }) => {
@@ -12,12 +12,15 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function RouteComponent() {
-  const privateData = useQuery(api.privateData.get);
+  const user = useQuery(api.auth.getCurrentUser);
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>privateData: {privateData?.message}</p>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <p className="text-sm text-muted-foreground">Welcome {user?.name}</p>
+      <p className="text-sm text-muted-foreground">
+        This is a private page. Only authenticated users can access this page.
+      </p>
     </div>
   );
 }

@@ -143,8 +143,14 @@ export default function SignUpForm() {
       </form>
 
       <div className="mt-4 text-center">
-        <Link to="/sign-in" className="text-indigo-600 hover:text-indigo-800">
-          Already have an account? Sign In
+        <span className="text-sm text-muted-foreground">
+          Already have an account?{" "}
+        </span>
+        <Link
+          to="/sign-in"
+          className="hover:underline text-sm text-muted-foreground hover:text-foreground hover:cursor-pointer"
+        >
+          <span className="font-bold">Sign In</span>
         </Link>
       </div>
     </div>

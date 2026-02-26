@@ -3,6 +3,7 @@ import { Authenticated, Unauthenticated } from "convex/react";
 
 import UserMenu from "./user-menu";
 import { ModeToggle } from "./mode-toggle";
+import { Button } from "./ui/button";
 
 export default function Header() {
   return (
@@ -15,13 +16,15 @@ export default function Header() {
           </Authenticated>
         </nav>
         <div className="flex items-center gap-2">
+          <ModeToggle />
           <Authenticated>
             <UserMenu />
           </Authenticated>
           <Unauthenticated>
-            <Link to="/sign-in">Login</Link>
+            <Button variant="outline">
+              <Link to="/sign-in">Login</Link>
+            </Button>
           </Unauthenticated>
-          <ModeToggle />
         </div>
       </div>
       <hr />
