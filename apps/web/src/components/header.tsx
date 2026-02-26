@@ -14,6 +14,9 @@ export default function Header() {
           <Authenticated>
             <Link to="/dashboard">Dashboard</Link>
           </Authenticated>
+          <Authenticated>
+            <Link to="/settings">Settings</Link>
+          </Authenticated>
         </nav>
         <div className="flex items-center gap-2">
           <ModeToggle />

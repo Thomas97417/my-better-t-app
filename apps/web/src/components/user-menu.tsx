@@ -1,5 +1,7 @@
 import { api } from "@my-better-t-app/backend/convex/_generated/api";
+import { useNavigate } from "@tanstack/react-router";
 import { useQuery } from "convex/react";
+import { LogOut, Settings, User } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -16,30 +18,58 @@ import { Button } from "./ui/button";
 
 export default function UserMenu() {
   const user = useQuery(api.auth.getCurrentUser);
+  const navigate = useNavigate();
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<Button variant="outline" />}>{user?.name}</DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-card">
+      <DropdownMenuTrigger
+        render={
+          <Button variant="outline" className="flex items-center gap-2 px-2" />
+        }
+      >
+        <span className="hidden text-sm font-medium sm:inline-block">
+          {user?.name}
+        </span>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56 bg-card">
         <DropdownMenuGroup>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>{user?.email}</DropdownMenuItem>
-          <DropdownMenuItem
-            variant="destructive"
-            onClick={() => {
-              authClient.signOut({
-                fetchOptions: {
-                  onSuccess: () => {
-                    location.reload();
-                  },
-                },
-              });
-            }}
-          >
-            Sign Out
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col gap-1">
+              <p className="text-sm font-medium leading-none">{user?.name}</p>
+              <p className="text-muted-foreground text-xs leading-none">
+                {user?.email}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={() => navigate({ to: "/dashboard" })}>
+            <User className="mr-2 size-4" />
+            Dashboard
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate({ to: "/settings" })}>
+            <Settings className="mr-2 size-4" />
+            Settings
           </DropdownMenuItem>
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          variant="destructive"
+          onClick={() => {
+            authClient.signOut({
+              fetchOptions: {
+                onSuccess: () => {
+                  navigate({ to: "/" });
+                  location.reload();
+                },
+              },
+            });
+          }}
+        >
+          <LogOut className="mr-2 size-4" />
+          Sign Out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
