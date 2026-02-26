@@ -7,6 +7,7 @@ import type { DataModel } from "./_generated/dataModel";
 import { components } from "./_generated/api";
 import { query } from "./_generated/server";
 import authConfig from "./auth.config";
+import { sendEmail } from "./lib/email";
 
 const siteUrl = process.env.SITE_URL!;
 
@@ -20,6 +21,13 @@ function createAuth(ctx: GenericCtx<DataModel>) {
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: false,
+      sendResetPassword: async ({ user, url, token }, request) => {
+        void sendEmail({
+          to: user.email,
+          subject: "Reset your password",
+          text: `Click the link to reset your password: ${url}`,
+        });
+      },
     },
     user: {
       changeEmail: {

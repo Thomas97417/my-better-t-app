@@ -8,8 +8,11 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function SignInForm() {
+  const [visible, setVisible] = useState(false);
   const navigate = useNavigate({
     from: "/",
   });
@@ -67,6 +70,7 @@ export default function SignInForm() {
                   id={field.name}
                   name={field.name}
                   type="email"
+                  placeholder="john.doe@example.com"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -85,15 +89,36 @@ export default function SignInForm() {
           <form.Field name="password">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Password</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor={field.name}>Password</Label>
+                  <Link
+                    to="/forgot-password"
+                    className="text-xs text-muted-foreground hover:underline cursor-pointer"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
                 <Input
                   id={field.name}
                   name={field.name}
-                  type="password"
+                  type={visible ? "text" : "password"}
+                  placeholder="********"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-colors"
+                  onClick={() => setVisible((v) => !v)}
+                >
+                  {visible ? (
+                    <EyeOff className="size-4" />
+                  ) : (
+                    <Eye className="size-4" />
+                  )}
+                </button>
                 {field.state.meta.errors.map((error) => (
                   <p key={error?.message} className="text-red-500">
                     {error?.message}

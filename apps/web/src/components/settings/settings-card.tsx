@@ -42,7 +42,7 @@ export function SettingsCardFooter({
   return (
     <div
       className={cn(
-        "flex min-h-14 w-full items-center justify-between rounded-b-lg border-t border-border bg-secondary px-6 dark:bg-card",
+        "flex min-h-14 w-full items-center justify-between rounded-b-lg border-t border-border bg-muted px-6",
         className,
       )}
     >
