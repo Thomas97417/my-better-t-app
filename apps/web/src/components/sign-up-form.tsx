@@ -8,6 +8,7 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import PasswordInput from "./ui/password-input";
 
 export default function SignUpForm() {
   const navigate = useNavigate({
@@ -113,11 +114,10 @@ export default function SignUpForm() {
             {(field) => (
               <div className="space-y-2">
                 <Label htmlFor={field.name}>Password</Label>
-                <Input
+                <PasswordInput
                   id={field.name}
-                  name={field.name}
-                  type="password"
                   placeholder="********"
+                  autoComplete="new-password"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}

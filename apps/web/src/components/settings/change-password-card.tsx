@@ -7,7 +7,6 @@ import z from "zod";
 import { authClient } from "@/lib/auth-client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import {
@@ -17,47 +16,7 @@ import {
   SettingsCardHeader,
 } from "./settings-card";
 
-function PasswordInput({
-  id,
-  placeholder,
-  autoComplete,
-  value,
-  onBlur,
-  onChange,
-}: {
-  id: string;
-  placeholder: string;
-  autoComplete: string;
-  value: string;
-  onBlur: () => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
-  const [visible, setVisible] = useState(false);
-
-  return (
-    <div className="relative w-80">
-      <Input
-        id={id}
-        type={visible ? "text" : "password"}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        required
-        value={value}
-        onBlur={onBlur}
-        onChange={onChange}
-        className="bg-transparent pr-9"
-      />
-      <button
-        type="button"
-        tabIndex={-1}
-        className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-colors"
-        onClick={() => setVisible((v) => !v)}
-      >
-        {visible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-      </button>
-    </div>
-  );
-}
+import PasswordInput from "../ui/password-input";
 
 export default function ChangePasswordCard() {
   const form = useForm({

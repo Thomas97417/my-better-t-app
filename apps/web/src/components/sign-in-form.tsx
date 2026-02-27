@@ -10,6 +10,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import PasswordInput from "./ui/password-input";
 
 export default function SignInForm() {
   const [visible, setVisible] = useState(false);
@@ -98,27 +99,14 @@ export default function SignInForm() {
                     Forgot password?
                   </Link>
                 </div>
-                <Input
+                <PasswordInput
                   id={field.name}
-                  name={field.name}
-                  type={visible ? "text" : "password"}
                   placeholder="********"
+                  autoComplete="current-password"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
-                <button
-                  type="button"
-                  tabIndex={-1}
-                  className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-colors"
-                  onClick={() => setVisible((v) => !v)}
-                >
-                  {visible ? (
-                    <EyeOff className="size-4" />
-                  ) : (
-                    <Eye className="size-4" />
-                  )}
-                </button>
                 {field.state.meta.errors.map((error) => (
                   <p key={error?.message} className="text-red-500">
                     {error?.message}
