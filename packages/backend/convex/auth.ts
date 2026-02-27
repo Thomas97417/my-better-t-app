@@ -18,14 +18,14 @@ export const authComponent = createClient<DataModel>(components.betterAuth);
 
 function createAuth(ctx: GenericCtx<DataModel>) {
   return betterAuth({
-    baseURL: `${SITE_URL}/api/auth`,
+    baseURL: `${SITE_URL}`,
     trustedOrigins: [SITE_URL],
     database: authComponent.adapter(ctx),
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: false,
       sendResetPassword: async ({ user, url }) => {
-        await resend.emails.send({
+        void resend.emails.send({
           from: EMAIL_FROM,
           to: user.email,
           subject: "Reset your password",
@@ -53,7 +53,6 @@ export { createAuth };
 export const getCurrentUser = query({
   args: {},
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    return identity;
+    return await authComponent.safeGetAuthUser(ctx);
   },
 });
