@@ -5,15 +5,13 @@ import z from "zod";
 
 import { authClient } from "@/lib/auth-client";
 
+import { GitHubLoginButton, GoogleLoginButton } from "./social-login-buttons";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
 import PasswordInput from "./ui/password-input";
 
 export default function SignInForm() {
-  const [visible, setVisible] = useState(false);
   const navigate = useNavigate({
     from: "/",
   });
@@ -130,7 +128,23 @@ export default function SignInForm() {
         </form.Subscribe>
       </form>
 
-      <div className="mt-2 text-center">
+      <div className="relative my-6">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <GitHubLoginButton />
+        <GoogleLoginButton />
+      </div>
+
+      <div className="mt-4 text-center">
         <span className="text-sm text-muted-foreground">Need an account? </span>
         <Link
           to="/sign-up"
