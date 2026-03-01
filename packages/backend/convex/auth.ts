@@ -4,10 +4,9 @@ import { betterAuth } from "better-auth";
 
 import type { DataModel } from "./_generated/dataModel";
 
-import { components } from "./_generated/api";
-import { query, type MutationCtx } from "./_generated/server";
+import { components, internal } from "./_generated/api";
+import { query, type ActionCtx } from "./_generated/server";
 import authConfig from "./auth.config";
-import { sendTestEmail } from "./sendEmails";
 import { SITE_URL, EMAIL_FROM } from "./env";
 
 export const authComponent = createClient<DataModel>(components.betterAuth);
@@ -21,12 +20,15 @@ function createAuth(ctx: GenericCtx<DataModel>) {
       enabled: true,
       requireEmailVerification: false,
       sendResetPassword: async ({ user, url }) => {
-        await sendTestEmail(ctx as unknown as MutationCtx, {
-          from: EMAIL_FROM,
-          to: user.email,
-          subject: "Reset your password",
-          html: `Click the link to reset your password: ${url}`,
-        });
+        const actionCtx = ctx as unknown as ActionCtx;
+        await actionCtx.runAction(
+          internal.sendEmails.sendResetPasswordEmail,
+          {
+            from: EMAIL_FROM,
+            to: user.email,
+            url,
+          },
+        );
       },
     },
     user: {
