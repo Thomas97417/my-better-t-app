@@ -10,9 +10,15 @@
   },
   "dependencies": {
     "@convex-dev/better-auth": "catalog:",
+    "@convex-dev/resend": "^0.2.3",
+    "@react-email/components": "^1.0.8",
+    "@react-email/render": "^2.0.4",
     "better-auth": "catalog:",
     "convex": "catalog:",
     "dotenv": "catalog:",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-email": "^5.2.9",
     "resend": "^6.9.2",
     "zod": "catalog:"
   },
