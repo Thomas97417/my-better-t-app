@@ -11,8 +11,9 @@ Priorité haute — Fondations manquantes
 
 Auth
 
-- Forgot password / Reset password — flux indispensable, absent pour
-  l'instant
+[✅] Forgot password / Reset password — flux indispensable, absent pour
+l'instant
+
 - OAuth social login (Google, GitHub) — Better-Auth le supporte nativement
 - Email verification — désactivé pour l'instant dans auth.ts
 - Session management dans settings — voir/révoquer les sessions actives
