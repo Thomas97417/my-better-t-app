@@ -16,7 +16,7 @@ l'instant
 
 [✅] OAuth social login (Google, GitHub) — Better-Auth le supporte nativement
 [✅] Email verification — désactivé pour l'instant dans auth.ts
-[ ] Session management dans settings — voir/révoquer les sessions actives
+[✅] Session management dans settings — voir/révoquer les sessions actives
 (Better-Auth le supporte aussi)
 [✅] 404 page — aucune gestion d'erreur de route actuellement
 [✅] Landing page propre — / ne fait qu'afficher un health check

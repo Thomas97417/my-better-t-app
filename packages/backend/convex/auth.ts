@@ -52,6 +52,9 @@ function createAuth(ctx: GenericCtx<DataModel>) {
         enabled: true,
         updateEmailWithoutVerification: true,
       },
+      deleteUser: {
+        enabled: true,
+      },
     },
     socialProviders: {
       github: {
