@@ -22,22 +22,26 @@ const TITLE_TEXT = `
 const FEATURES = [
   {
     title: "TanStack Start",
-    description: "Full-stack SSR framework with file-based routing and type-safe data loading",
+    description:
+      "Full-stack SSR framework with file-based routing and type-safe data loading",
     link: "https://tanstack.com/start",
   },
   {
     title: "Convex",
-    description: "Reactive backend with real-time sync, automatic caching, and serverless functions",
+    description:
+      "Reactive backend with real-time sync, automatic caching, and serverless functions",
     link: "https://convex.dev",
   },
   {
     title: "Better Auth",
-    description: "Flexible authentication with email/password, Google, and GitHub providers",
+    description:
+      "Flexible authentication with email/password, Google, and GitHub providers",
     link: "https://better-auth.com",
   },
   {
     title: "Tailwind + shadcn/ui",
-    description: "Utility-first CSS with beautifully designed, accessible components",
+    description:
+      "Utility-first CSS with beautifully designed, accessible components",
     link: "https://tailwindcss.com",
   },
 ];
@@ -90,8 +94,9 @@ function HomeComponent() {
               Ship faster with the modern full-stack starter
             </h1>
             <p className="text-muted-foreground max-w-md text-center text-sm leading-relaxed">
-              Everything you need to build production-ready apps — authentication,
-              real-time data, SSR, and beautiful UI out of the box.
+              Everything you need to build production-ready apps —
+              authentication, real-time data, SSR, and beautiful UI out of the
+              box.
             </p>
           </div>
 
@@ -142,7 +147,9 @@ function HomeComponent() {
       {/* Features */}
       <section className="w-full max-w-3xl px-4 pb-20">
         <div className="mb-6 flex flex-col items-center gap-1">
-          <h2 className="text-lg font-semibold tracking-tight">Built with the best</h2>
+          <h2 className="text-lg font-semibold tracking-tight">
+            Built with the best
+          </h2>
           <p className="text-muted-foreground text-sm">
             A curated stack for developer experience and performance.
           </p>

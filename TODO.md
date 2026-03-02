@@ -19,14 +19,14 @@ l'instant
 [ ] Session management dans settings — voir/révoquer les sessions actives
 (Better-Auth le supporte aussi)
 [✅] 404 page — aucune gestion d'erreur de route actuellement
-[ ] Landing page propre — / ne fait qu'afficher un health check
-[ ] Error boundary global — pas de fallback UI en cas de crash
+[✅] Landing page propre — / ne fait qu'afficher un health check
+[✅] Error boundary global — pas de fallback UI en cas de crash
 
 Pages
 
-[ ] 404 page — aucune gestion d'erreur de route actuellement
-[ ] Landing page propre — / ne fait qu'afficher un health check
-[ ] Error boundary global — pas de fallback UI en cas de crash
+[✅] 404 page — aucune gestion d'erreur de route actuellement
+[✅] Landing page propre — / ne fait qu'afficher un health check
+[✅] Error boundary global — pas de fallback UI en cas de crash
 
 ---
 

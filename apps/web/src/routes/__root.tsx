@@ -17,6 +17,7 @@ import { authClient } from "@/lib/auth-client";
 import { getToken } from "@/lib/auth-server";
 
 import Header from "../components/header";
+import ErrorBoundary from "../components/error-boundary";
 import NotFound from "../components/not-found";
 import appCss from "../index.css?url";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -41,7 +42,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "My App",
+        title: "Toma Stack",
       },
     ],
     links: [
@@ -63,6 +64,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       token,
     };
   },
+  errorComponent: ErrorBoundary,
   notFoundComponent: NotFound,
 });
 
