@@ -35,7 +35,11 @@ export default function SignInForm() {
             toast.success("Sign in successful");
           },
           onError: (error) => {
-            toast.error(error.error.message || error.error.statusText);
+            if (error.error.status === 403) {
+              toast.error("Please verify your email before signing in.");
+            } else {
+              toast.error(error.error.message || error.error.statusText);
+            }
           },
         },
       );

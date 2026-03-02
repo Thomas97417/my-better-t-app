@@ -17,6 +17,7 @@ import { authClient } from "@/lib/auth-client";
 import { getToken } from "@/lib/auth-server";
 
 import Header from "../components/header";
+import NotFound from "../components/not-found";
 import appCss from "../index.css?url";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -62,6 +63,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       token,
     };
   },
+  notFoundComponent: NotFound,
 });
 
 function RootDocument() {

@@ -26,13 +26,24 @@ function createAuth(ctx: GenericCtx<DataModel>) {
     database: authComponent.adapter(ctx),
     emailAndPassword: {
       enabled: true,
-      requireEmailVerification: false,
+      requireEmailVerification: true,
       sendResetPassword: async ({ user, url }) => {
         const actionCtx = ctx as unknown as ActionCtx;
         await actionCtx.runAction(internal.sendEmails.sendResetPasswordEmail, {
           from: EMAIL_FROM,
           to: user.email,
           url,
+        });
+      },
+    },
+    emailVerification: {
+      sendVerificationEmail: async ({ user, url, token }) => {
+        const actionCtx = ctx as unknown as ActionCtx;
+        await actionCtx.runAction(internal.sendEmails.sendVerificationEmail, {
+          from: EMAIL_FROM,
+          to: user.email,
+          url,
+          token,
         });
       },
     },

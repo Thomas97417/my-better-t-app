@@ -89,3 +89,50 @@ export const sendResetPasswordEmail = internalAction({
     });
   },
 });
+
+function VerificationEmail({ url }: { url: string }) {
+  return (
+    <Html>
+      <Head />
+      <Body style={{ backgroundColor: "#f6f9fc", fontFamily: "sans-serif" }}>
+        <Container
+          style={{
+            backgroundColor: "#ffffff",
+            padding: "40px",
+            borderRadius: "8px",
+            margin: "40px auto",
+            maxWidth: "480px",
+          }}
+        >
+          <Text
+            style={{ fontSize: "14px", color: "#555", marginBottom: "24px" }}
+          >
+            Click the button below to verify your email.
+          </Text>
+          <Section style={{ textAlign: "center" as const }}>
+            <Button href={url}>Verify email</Button>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+}
+
+export const sendVerificationEmail = internalAction({
+  args: {
+    from: v.string(),
+    to: v.string(),
+    url: v.string(),
+    token: v.string(),
+  },
+  handler: async (ctx, { from, to, url, token }) => {
+    const html = await render(<VerificationEmail url={url} />);
+
+    await resend.sendEmail(ctx, {
+      from,
+      to,
+      subject: "Verify your email",
+      html,
+    });
+  },
+});

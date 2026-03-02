@@ -12,7 +12,6 @@ import type * as auth from "../auth.js";
 import type * as env from "../env.js";
 import type * as healthCheck from "../healthCheck.js";
 import type * as http from "../http.js";
-import type * as lib_email from "../lib/email.js";
 import type * as privateData from "../privateData.js";
 import type * as sendEmails from "../sendEmails.js";
 
@@ -27,7 +26,6 @@ declare const fullApi: ApiFromModules<{
   env: typeof env;
   healthCheck: typeof healthCheck;
   http: typeof http;
-  "lib/email": typeof lib_email;
   privateData: typeof privateData;
   sendEmails: typeof sendEmails;
 }>;
