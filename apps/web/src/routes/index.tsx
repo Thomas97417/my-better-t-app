@@ -7,6 +7,16 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Toma Stack — Modern Full-Stack Starter" },
+      {
+        name: "description",
+        content:
+          "A production-ready starter built with TanStack Start, Convex, Better Auth, and Tailwind CSS.",
+      },
+    ],
+  }),
   component: HomeComponent,
 });
 

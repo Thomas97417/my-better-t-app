@@ -64,7 +64,7 @@ partout
 [✅] ConfirmDialog component réutilisable — remplacer le two-step ad-hoc dans
 delete-account-card.tsx
 [ ] Empty state component — pour les listes vides
-[ ] Meta/SEO tags — title et description par route
+[✅] Meta/SEO tags — title et description par route
 
 ---
 

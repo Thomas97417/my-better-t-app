@@ -13,6 +13,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Settings, Shield, Zap } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
+  head: () => ({
+    meta: [
+      { title: "Dashboard — Toma Stack" },
+      {
+        name: "description",
+        content: "Your personal dashboard overview.",
+      },
+    ],
+  }),
   beforeLoad: async ({ context }) => {
     if (!context.isAuthenticated) {
       throw redirect({ to: "/" });

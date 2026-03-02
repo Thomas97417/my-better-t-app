@@ -9,6 +9,15 @@ import EmailCard from "@/components/settings/update-email-card";
 import UpdateNameCard from "@/components/settings/update-name-card";
 
 export const Route = createFileRoute("/settings")({
+  head: () => ({
+    meta: [
+      { title: "Settings — Toma Stack" },
+      {
+        name: "description",
+        content: "Manage your account settings, email, password, and sessions.",
+      },
+    ],
+  }),
   beforeLoad: async ({ context }) => {
     if (!context.isAuthenticated) {
       throw redirect({ to: "/sign-in" });
