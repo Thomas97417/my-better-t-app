@@ -13,8 +13,21 @@ import { toast } from "sonner";
 import z from "zod";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function UpdateEmailCard({ email }: { email: string }) {
+  const { data: accounts } = useQuery({
+    queryKey: ["accounts"],
+    queryFn: async () => {
+      const { data } = await authClient.listAccounts();
+      return data;
+    },
+  });
+  const isSocialOnly =
+    accounts !== undefined &&
+    accounts !== null &&
+    !accounts.some((account) => account.providerId === "credential");
+
   const form = useForm({
     defaultValues: { newEmail: email },
     onSubmit: async ({ value }) => {
@@ -59,6 +72,7 @@ export default function UpdateEmailCard({ email }: { email: string }) {
                   id="newEmail"
                   autoComplete="off"
                   required
+                  disabled={isSocialOnly}
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -75,14 +89,18 @@ export default function UpdateEmailCard({ email }: { email: string }) {
         </SettingsCardContent>
         <SettingsCardFooter>
           <p className="text-sm text-muted-foreground">
-            Please enter a valid email address.
+            {isSocialOnly
+              ? "Email is managed by your social login provider."
+              : "Please enter a valid email address."}
           </p>
           <form.Subscribe>
             {(state) => (
               <Button
                 type="submit"
                 size="sm"
-                disabled={!state.canSubmit || state.isSubmitting}
+                disabled={
+                  isSocialOnly || !state.canSubmit || state.isSubmitting
+                }
               >
                 {state.isSubmitting ? (
                   <Loader2 className="animate-spin size-4" />
