@@ -61,7 +61,7 @@ Quick wins techniques
 
 [ ] useCurrentUser hook centralisé — au lieu de répéter api.auth.getCurrentUser
 partout
-[ ] ConfirmDialog component réutilisable — remplacer le two-step ad-hoc dans
+[✅] ConfirmDialog component réutilisable — remplacer le two-step ad-hoc dans
 delete-account-card.tsx
 [ ] Empty state component — pour les listes vides
 [ ] Meta/SEO tags — title et description par route

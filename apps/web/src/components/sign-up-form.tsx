@@ -34,7 +34,9 @@ export default function SignUpForm() {
             navigate({
               to: "/dashboard",
             });
-            toast.success("Sign up successful");
+            toast.success(
+              "Sign up successful, please check your email for verification.",
+            );
           },
           onError: (error) => {
             toast.error(error.error.message || error.error.statusText);
@@ -46,7 +48,13 @@ export default function SignUpForm() {
       onSubmit: z.object({
         name: z.string().min(2, "Name must be at least 2 characters"),
         email: z.email("Invalid email address"),
-        password: z.string().min(8, "Password must be at least 8 characters"),
+        password: z
+          .string()
+          .min(8, "Password must be at least 8 characters")
+          .regex(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/,
+            "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
+          ),
       }),
     },
   });
@@ -77,7 +85,7 @@ export default function SignUpForm() {
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
                 {field.state.meta.errors.map((error) => (
-                  <p key={error?.message} className="text-red-500">
+                  <p key={error?.message} className="text-red-500 text-xs">
                     {error?.message}
                   </p>
                 ))}
@@ -101,7 +109,7 @@ export default function SignUpForm() {
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
                 {field.state.meta.errors.map((error) => (
-                  <p key={error?.message} className="text-red-500">
+                  <p key={error?.message} className="text-red-500 text-xs">
                     {error?.message}
                   </p>
                 ))}
@@ -124,7 +132,7 @@ export default function SignUpForm() {
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
                 {field.state.meta.errors.map((error) => (
-                  <p key={error?.message} className="text-red-500">
+                  <p key={error?.message} className="text-red-500 text-xs">
                     {error?.message}
                   </p>
                 ))}
