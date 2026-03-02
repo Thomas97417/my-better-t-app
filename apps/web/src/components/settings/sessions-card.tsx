@@ -2,7 +2,7 @@ import { authClient } from "@/lib/auth-client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { Loader2, Monitor, Smartphone, Globe, X } from "lucide-react";
+import { Loader2, Monitor, Smartphone, Globe, X, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "@tanstack/react-router";
 import {
@@ -12,6 +12,18 @@ import {
   SettingsCardHeader,
 } from "./settings-card";
 import { Skeleton } from "../ui/skeleton";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 
 export default function SessionsCard() {
   const queryClient = useQueryClient();
@@ -143,19 +155,65 @@ export default function SessionsCard() {
                       </span>
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon-xs"
-                    className="hover:cursor-pointer text-muted-foreground hover:text-destructive"
-                    disabled={revokingId === session.token}
-                    onClick={() => revokeSession(session.id, session.token)}
-                  >
-                    {revokingId === session.token ? (
-                      <Loader2 className="size-3 animate-spin" />
-                    ) : (
-                      <X className="size-3" />
-                    )}
-                  </Button>
+                  {isCurrent ? (
+                    <AlertDialog>
+                      <AlertDialogTrigger
+                        render={
+                          <Button
+                            variant="ghost"
+                            size="icon-xs"
+                            className="hover:cursor-pointer text-muted-foreground hover:text-destructive"
+                            disabled={revokingId === session.token}
+                          />
+                        }
+                      >
+                        {revokingId === session.token ? (
+                          <Loader2 className="size-3 animate-spin" />
+                        ) : (
+                          <X className="size-3" />
+                        )}
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogMedia>
+                            <LogOut className="size-5" />
+                          </AlertDialogMedia>
+                          <AlertDialogTitle>
+                            Revoke current session?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            You will be logged out immediately and redirected to
+                            the home page.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            variant="destructive"
+                            onClick={() =>
+                              revokeSession(session.id, session.token)
+                            }
+                          >
+                            Log out
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  ) : (
+                    <Button
+                      variant="ghost"
+                      size="icon-xs"
+                      className="hover:cursor-pointer text-muted-foreground hover:text-destructive"
+                      disabled={revokingId === session.token}
+                      onClick={() => revokeSession(session.id, session.token)}
+                    >
+                      {revokingId === session.token ? (
+                        <Loader2 className="size-3 animate-spin" />
+                      ) : (
+                        <X className="size-3" />
+                      )}
+                    </Button>
+                  )}
                 </div>
               );
             })
