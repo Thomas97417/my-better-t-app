@@ -1,6 +1,4 @@
 import { useForm } from "@tanstack/react-form";
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -29,7 +27,7 @@ export default function ChangePasswordCard() {
       const { error } = await authClient.changePassword({
         currentPassword: value.currentPassword,
         newPassword: value.newPassword,
-        revokeOtherSessions: false,
+        revokeOtherSessions: true,
       });
       if (error) {
         toast.error(error.message);

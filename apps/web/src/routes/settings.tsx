@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 
 import ChangePasswordCard from "@/components/settings/change-password-card";
 import DeleteAccountCard from "@/components/settings/delete-account-card";
+import SessionsCard from "@/components/settings/sessions-card";
 import EmailCard from "@/components/settings/update-email-card";
 import UpdateNameCard from "@/components/settings/update-name-card";
 
@@ -32,6 +33,7 @@ function RouteComponent() {
       <UpdateNameCard name={user.name} />
       <EmailCard email={user.email} />
       <ChangePasswordCard />
+      <SessionsCard />
       <DeleteAccountCard />
     </div>
   );
