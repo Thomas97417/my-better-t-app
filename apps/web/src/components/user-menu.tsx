@@ -1,6 +1,5 @@
-import { api } from "@my-better-t-app/backend/convex/_generated/api";
 import { useNavigate } from "@tanstack/react-router";
-import { useQuery } from "convex/react";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { LogOut, Settings, User } from "lucide-react";
 
 import {
@@ -17,7 +16,7 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "./ui/button";
 
 export default function UserMenu() {
-  const user = useQuery(api.auth.getCurrentUser);
+  const user = useCurrentUser();
   const navigate = useNavigate();
 
   return (

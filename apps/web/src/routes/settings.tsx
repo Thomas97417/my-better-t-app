@@ -1,6 +1,5 @@
-import { api } from "@my-better-t-app/backend/convex/_generated/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { useQuery } from "convex/react";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 import ChangePasswordCard from "@/components/settings/change-password-card";
 import DeleteAccountCard from "@/components/settings/delete-account-card";
@@ -27,7 +26,7 @@ export const Route = createFileRoute("/settings")({
 });
 
 function RouteComponent() {
-  const user = useQuery(api.auth.getCurrentUser);
+  const user = useCurrentUser();
 
   if (!user) return null;
 
