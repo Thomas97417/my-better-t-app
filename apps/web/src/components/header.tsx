@@ -24,6 +24,9 @@ export default function Header() {
               <Link to="/settings" className={linkStyles}>
                 Settings
               </Link>
+              <Link to="/upload" className={linkStyles}>
+                Upload
+              </Link>
             </Authenticated>
           </nav>
         </div>
@@ -33,7 +36,10 @@ export default function Header() {
             <UserMenu />
           </Authenticated>
           <Unauthenticated>
-            <Link to="/sign-in" className={buttonVariants({ variant: "outline" })}>
+            <Link
+              to="/sign-in"
+              className={buttonVariants({ variant: "outline" })}
+            >
               Login
             </Link>
           </Unauthenticated>
