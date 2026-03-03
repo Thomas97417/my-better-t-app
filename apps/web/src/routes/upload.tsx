@@ -1,6 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { api } from "@my-better-t-app/backend/convex/_generated/api";
 import { useUploadFile } from "@convex-dev/r2/react";
+import { usePaginatedQuery } from "convex/react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -37,6 +38,11 @@ function UploadPage() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const { results: images, status, loadMore } = usePaginatedQuery(
+    api.example.listMetadata,
+    {},
+    { initialNumItems: 20 },
+  );
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] ?? null;
@@ -142,6 +148,37 @@ function UploadPage() {
           </form>
         </CardContent>
       </Card>
+
+      {images.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-lg font-semibold mb-4">Uploaded Images</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {images.map((image) => (
+              <div
+                key={image.key}
+                className="overflow-hidden rounded-lg border bg-muted/30"
+              >
+                <img
+                  src={image.url}
+                  alt={image.key}
+                  className="aspect-square w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+          {status === "CanLoadMore" && (
+            <div className="mt-4 flex justify-center">
+              <Button
+                variant="outline"
+                onClick={() => loadMore(20)}
+                className="hover:cursor-pointer"
+              >
+                Load more
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
