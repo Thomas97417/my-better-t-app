@@ -9,7 +9,17 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Settings, Shield, Zap } from "lucide-react";
+import {
+  Settings,
+  Shield,
+  Upload,
+  Zap,
+  CircleCheck,
+  Database,
+  Lock,
+  BarChart3,
+  HardDrive,
+} from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -54,7 +64,7 @@ function RouteComponent() {
       </div>
 
       {/* Quick actions */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
@@ -107,27 +117,67 @@ function RouteComponent() {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <div className="flex size-8 items-center justify-center rounded-lg bg-green-500/10 text-green-600 dark:text-green-400">
-                <div className="size-2 rounded-full bg-green-500" />
+              <div className="bg-primary/10 text-primary flex size-8 items-center justify-center rounded-lg">
+                <Upload className="size-4" />
               </div>
-              <CardTitle>Status</CardTitle>
+              <CardTitle>Storage</CardTitle>
             </div>
-            <CardDescription>All systems operational.</CardDescription>
+            <CardDescription>
+              Upload and manage files with Cloudflare R2.
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col gap-2 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Authentication</span>
-                <span className="text-green-600 dark:text-green-400">
-                  Active
-                </span>
+            <Link to="/upload">
+              <Button
+                variant="outline"
+                size="sm"
+                className="hover:cursor-pointer"
+              >
+                <Upload className="size-3.5" />
+                Upload files
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex size-8 items-center justify-center rounded-lg bg-green-500/10 text-green-600 dark:text-green-400">
+                  <CircleCheck className="size-4" />
+                </div>
+                <CardTitle>Status</CardTitle>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Database</span>
-                <span className="text-green-600 dark:text-green-400">
-                  Connected
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-2.5 py-0.5 text-[0.65rem] font-medium text-green-600 dark:text-green-400">
+                <span className="relative flex size-1.5">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-green-500 opacity-75" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-green-500" />
                 </span>
-              </div>
+                Operational
+              </span>
+            </div>
+            <CardDescription>All services are running.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2.5 text-xs">
+              {[
+                { icon: Lock, label: "Authentication", value: "Better Auth" },
+                { icon: Database, label: "Database", value: "Convex" },
+                { icon: BarChart3, label: "Analytics", value: "PostHog" },
+                { icon: HardDrive, label: "Storage", value: "Cloudflare R2" },
+              ].map(({ icon: Icon, label, value }) => (
+                <div key={label} className="flex items-center justify-between">
+                  <span className="text-muted-foreground flex items-center gap-2">
+                    <Icon className="size-3" />
+                    {label}
+                  </span>
+                  <span className="text-green-600 dark:text-green-400 flex items-center gap-1.5">
+                    <CircleCheck className="size-3" />
+                    {value}
+                  </span>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>

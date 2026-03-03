@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A production-ready starter built with TanStack Start, Convex, Better Auth, and Tailwind CSS.",
+          "A production-ready starter built with TanStack Start, Convex, Better Auth, Cloudflare R2, PostHog, and Tailwind CSS.",
       },
     ],
   }),
@@ -47,6 +47,18 @@ const FEATURES = [
     description:
       "Flexible authentication with email/password, Google, and GitHub providers",
     link: "https://better-auth.com",
+  },
+  {
+    title: "Cloudflare R2",
+    description:
+      "S3-compatible object storage with zero egress fees for file uploads",
+    link: "https://developers.cloudflare.com/r2",
+  },
+  {
+    title: "PostHog",
+    description:
+      "Product analytics, session replay, and feature flags for data-driven decisions",
+    link: "https://posthog.com",
   },
   {
     title: "Tailwind + shadcn/ui",
