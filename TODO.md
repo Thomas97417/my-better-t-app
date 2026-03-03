@@ -35,14 +35,12 @@ Priorité moyenne — Features SaaS courantes
 Settings
 
 [ ] Avatar / photo de profil — Convex File Storage ou Cloudflare R2
-[ ] Notifications preferences — email, in-app
-[ ] Appearance (langue, timezone)
 
 Infrastructure
 
 [ ] Emails transactionnels — Resend + React Email (reset password, welcome,
 etc.)
-[ ] Analytics — Posthog ou Plausible (1 ligne à ajouter)
+[✅] Analytics — Posthog ou Plausible (1 ligne à ajouter)
 [ ] Rate limiting — côté Convex HTTP actions
 
 ---
@@ -52,8 +50,6 @@ Priorité basse — Si le projet évolue en SaaS
 [ ] Organisations / Teams — multi-tenant avec rôles (Better-Auth le supporte)
 [ ] Billing / Subscriptions — Stripe + webhooks Convex
 [ ] Onboarding flow — wizard post sign-up pour configurer le compte
-[ ] API keys management — pour les intégrations tierces
-[ ] In-app notifications — avec table Convex dédiée
 
 ---
 
@@ -65,13 +61,3 @@ partout
 delete-account-card.tsx
 [⚠️] Empty state component — pour les listes vides
 [✅] Meta/SEO tags — title et description par route
-
----
-
-Par où commencer ? Je recommande dans cet ordre :
-
-1. Forgot/reset password + Email verification (Resend)
-2. 404 page + Error boundary
-3. Landing page digne de ce nom
-4. OAuth (Google au minimum)
-5. Session management dans settings
