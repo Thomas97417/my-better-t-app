@@ -23,6 +23,18 @@ export const { generateUploadUrl, syncMetadata, listMetadata, getMetadata } = r2
   },
 });
 
+export const generateUserUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const user = await authComponent.safeGetAuthUser(ctx);
+    if (!user) {
+      throw new Error("Not authenticated");
+    }
+    const key = `uploads/${crypto.randomUUID()}`;
+    return r2.generateUploadUrl(key);
+  },
+});
+
 export const generateAvatarUploadUrl = mutation({
   args: {},
   handler: async (ctx) => {

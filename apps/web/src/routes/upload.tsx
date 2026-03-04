@@ -1,7 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { api } from "@my-better-t-app/backend/convex/_generated/api";
-import { useUploadFile } from "@convex-dev/r2/react";
-import { usePaginatedQuery } from "convex/react";
+import { useMutation, usePaginatedQuery } from "convex/react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -33,7 +32,8 @@ export const Route = createFileRoute("/upload")({
 });
 
 function UploadPage() {
-  const uploadFile = useUploadFile(api.r2);
+  const generateUploadUrl = useMutation(api.r2.generateUserUploadUrl);
+  const syncMetadata = useMutation(api.r2.syncMetadata);
   const imageInput = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -69,7 +69,13 @@ function UploadPage() {
 
     setIsUploading(true);
     try {
-      await uploadFile(selectedImage);
+      const { key, url } = await generateUploadUrl();
+      await fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": selectedImage.type },
+        body: selectedImage,
+      });
+      await syncMetadata({ key });
       toast.success("Image uploaded successfully.");
       clearSelection();
     } catch {
