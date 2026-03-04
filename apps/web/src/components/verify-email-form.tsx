@@ -1,6 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import { Link } from "@tanstack/react-router";
-import { MailCheck } from "lucide-react";
+import { ArrowLeft, Mail, MailCheck } from "lucide-react";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -44,10 +44,12 @@ export default function VerifyEmailForm() {
         </div>
         <h1 className="text-3xl font-bold">Check your inbox</h1>
         <p className="text-sm text-muted-foreground">
-          If an account exists for that email, a verification link has been sent.
+          If an account exists for that email, a verification link has been
+          sent.
         </p>
         <Link to="/sign-in">
           <Button variant="outline" className="mt-2">
+            <ArrowLeft className="h-4 w-4" />
             Back to sign in
           </Button>
         </Link>
@@ -57,10 +59,15 @@ export default function VerifyEmailForm() {
 
   return (
     <div className="mx-auto w-full mt-10 max-w-md p-6">
-      <h1 className="mb-2 text-center text-3xl font-bold">Verify your email</h1>
-      <p className="mb-6 text-center text-sm text-muted-foreground">
-        Enter your email and we'll send you a verification link.
-      </p>
+      <div className="mb-6 flex flex-col items-center space-y-3">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+          <Mail className="h-6 w-6 text-primary" />
+        </div>
+        <h1 className="text-3xl font-bold">Verify your email</h1>
+        <p className="text-center text-sm text-muted-foreground">
+          Enter your email and we'll send you a verification link.
+        </p>
+      </div>
 
       <form
         onSubmit={(e) => {
@@ -70,29 +77,27 @@ export default function VerifyEmailForm() {
         }}
         className="space-y-4"
       >
-        <div>
-          <form.Field name="email">
-            {(field) => (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Email</Label>
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  type="email"
-                  placeholder="john.doe@example.com"
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                />
-                {field.state.meta.errors.map((error) => (
-                  <p key={error?.message} className="text-red-500 text-sm">
-                    {error?.message}
-                  </p>
-                ))}
-              </div>
-            )}
-          </form.Field>
-        </div>
+        <form.Field name="email">
+          {(field) => (
+            <div className="space-y-2">
+              <Label htmlFor={field.name}>Email</Label>
+              <Input
+                id={field.name}
+                name={field.name}
+                type="email"
+                placeholder="john.doe@example.com"
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+              />
+              {field.state.meta.errors.map((error) => (
+                <p key={error?.message} className="text-red-500 text-sm">
+                  {error?.message}
+                </p>
+              ))}
+            </div>
+          )}
+        </form.Field>
 
         <form.Subscribe>
           {(state) => (
@@ -110,8 +115,9 @@ export default function VerifyEmailForm() {
       <div className="mt-4 text-center">
         <Link
           to="/sign-in"
-          className="text-sm text-muted-foreground hover:text-foreground hover:underline"
+          className="flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground hover:underline"
         >
+          <ArrowLeft className="h-4 w-4" />
           Back to sign in
         </Link>
       </div>
