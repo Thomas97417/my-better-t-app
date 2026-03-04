@@ -7,7 +7,7 @@ export const r2 = new R2(components.r2);
 // Pass DataModel as a generic type parameter to get proper TypeScript typing
 // for all callback contexts. Without this, ctx will be typed as GenericDocument
 // instead of your specific table types.
-export const { generateUploadUrl, syncMetadata, listMetadata } = r2.clientApi<DataModel>({
+export const { generateUploadUrl, syncMetadata, listMetadata, getMetadata } = r2.clientApi<DataModel>({
   checkUpload: async (ctx, bucket) => {
     // const user = await userFromAuth(ctx);
     // ...validate that the user can upload to this bucket
