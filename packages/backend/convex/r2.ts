@@ -42,6 +42,10 @@ export const generateAvatarUploadUrl = mutation({
     if (!user) {
       throw new Error("Not authenticated");
     }
+    // Delete the old avatar from R2 if it exists
+    if (user.image && user.image.startsWith("avatars/")) {
+      await r2.deleteObject(ctx, user.image);
+    }
     const key = `avatars/${user._id}/${crypto.randomUUID()}`;
     return r2.generateUploadUrl(key);
   },
