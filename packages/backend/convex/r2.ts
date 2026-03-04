@@ -1,6 +1,8 @@
 import { R2 } from "@convex-dev/r2";
 import { components } from "./_generated/api";
 import type { DataModel } from "./_generated/dataModel";
+import { mutation } from "./_generated/server";
+import { authComponent } from "./auth";
 
 export const r2 = new R2(components.r2);
 
@@ -18,5 +20,17 @@ export const { generateUploadUrl, syncMetadata, listMetadata, getMetadata } = r2
     // is performed from the client side. Will run if using the `useUploadFile`
     // hook, or if `syncMetadata` function is called directly. Runs after the
     // `checkUpload` callback.
+  },
+});
+
+export const generateAvatarUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const user = await authComponent.safeGetAuthUser(ctx);
+    if (!user) {
+      throw new Error("Not authenticated");
+    }
+    const key = `avatars/${user._id}/${crypto.randomUUID()}`;
+    return r2.generateUploadUrl(key);
   },
 });

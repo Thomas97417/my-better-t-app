@@ -33,13 +33,13 @@ export const Route = createFileRoute("/upload")({
 });
 
 function UploadPage() {
-  const uploadFile = useUploadFile(api.example);
+  const uploadFile = useUploadFile(api.r2);
   const imageInput = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const { results: images, status, loadMore } = usePaginatedQuery(
-    api.example.listMetadata,
+    api.r2.listMetadata,
     {},
     { initialNumItems: 20 },
   );

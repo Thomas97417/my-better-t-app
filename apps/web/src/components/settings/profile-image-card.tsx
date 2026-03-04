@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { api } from "@my-better-t-app/backend/convex/_generated/api";
-import { useUploadFile } from "@convex-dev/r2/react";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
 import { Loader2, Camera, User } from "lucide-react";
 
@@ -21,14 +20,17 @@ export default function ProfileImageCard({
 }: {
   image: string | undefined;
 }) {
-  const uploadFile = useUploadFile(api.example);
+  const generateAvatarUploadUrl = useMutation(
+    api.r2.generateAvatarUploadUrl,
+  );
+  const syncMetadata = useMutation(api.r2.syncMetadata);
   const fileInput = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   const metadata = useQuery(
-    api.example.getMetadata,
+    api.r2.getMetadata,
     image ? { key: image } : "skip",
   );
 
@@ -50,7 +52,13 @@ export default function ProfileImageCard({
       setIsUploading(true);
 
       try {
-        const key = await uploadFile(file);
+        const { key, url } = await generateAvatarUploadUrl();
+        await fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": file.type },
+          body: file,
+        });
+        await syncMetadata({ key });
         await authClient.updateUser(
           { image: key },
           {
@@ -73,7 +81,7 @@ export default function ProfileImageCard({
         }
       }
     },
-    [uploadFile],
+    [generateAvatarUploadUrl, syncMetadata],
   );
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {

@@ -10,10 +10,10 @@
 
 import type * as auth from "../auth.js";
 import type * as env from "../env.js";
-import type * as example from "../example.js";
 import type * as healthCheck from "../healthCheck.js";
 import type * as http from "../http.js";
 import type * as privateData from "../privateData.js";
+import type * as r2 from "../r2.js";
 import type * as sendEmails from "../sendEmails.js";
 
 import type {
@@ -25,10 +25,10 @@ import type {
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   env: typeof env;
-  example: typeof example;
   healthCheck: typeof healthCheck;
   http: typeof http;
   privateData: typeof privateData;
+  r2: typeof r2;
   sendEmails: typeof sendEmails;
 }>;
 

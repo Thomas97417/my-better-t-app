@@ -34,7 +34,7 @@ Priorité moyenne — Features SaaS courantes
 
 Settings
 
-[ ] Avatar / photo de profil — Convex File Storage ou Cloudflare R2
+[✅] Avatar / photo de profil — Convex File Storage ou Cloudflare R2
 
 Infrastructure
 
