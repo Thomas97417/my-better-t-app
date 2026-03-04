@@ -148,13 +148,20 @@ export default function SignInForm() {
         <GoogleLoginButton />
       </div>
 
-      <div className="mt-4 text-center">
-        <span className="text-sm text-muted-foreground">Need an account? </span>
+      <div className="mt-4 text-center text-sm text-muted-foreground">
+        <span>Need an account?{" "}</span>
         <Link
           to="/sign-up"
-          className="hover:underline text-sm text-muted-foreground hover:text-foreground cursor-pointer"
+          className="hover:underline hover:text-foreground cursor-pointer font-bold"
         >
-          <span className="font-bold">Sign Up</span>
+          Sign Up
+        </Link>
+        <span className="mx-2">·</span>
+        <Link
+          to="/verify-email"
+          className="hover:underline hover:text-foreground cursor-pointer"
+        >
+          Verify your email
         </Link>
       </div>
     </div>
