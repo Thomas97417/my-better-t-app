@@ -159,7 +159,7 @@ function UploadPage() {
         <div className="mt-8">
           <h2 className="text-lg font-semibold mb-4">Uploaded Images</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {images.map((image) => (
+            {images.filter((image) => image.key.startsWith("uploads/")).map((image) => (
               <div
                 key={image.key}
                 className="overflow-hidden rounded-lg border bg-muted/30"
