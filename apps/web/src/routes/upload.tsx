@@ -13,6 +13,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Loader2, Upload, X, ImageIcon } from "lucide-react";
 
+const MAX_SIZE = 5 * 1024 * 1024; // 1MB
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
 export const Route = createFileRoute("/upload")({
   head: () => ({
     meta: [
@@ -38,14 +41,24 @@ function UploadPage() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const { results: images, status, loadMore } = usePaginatedQuery(
-    api.r2.listMetadata,
-    {},
-    { initialNumItems: 20 },
-  );
+  const {
+    results: images,
+    status,
+    loadMore,
+  } = usePaginatedQuery(api.r2.listMetadata, {}, { initialNumItems: 20 });
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] ?? null;
+    if (file && file.size > MAX_SIZE) {
+      toast.error("File too large. Maximum size is 5 MB.");
+      if (imageInput.current) imageInput.current.value = "";
+      return;
+    }
+    if (file && !ALLOWED_TYPES.includes(file.type)) {
+      toast.error("Unsupported file type. Please use JPG, PNG, or WebP.");
+      if (imageInput.current) imageInput.current.value = "";
+      return;
+    }
     setSelectedImage(file);
     if (file) {
       const url = URL.createObjectURL(file);
@@ -66,6 +79,14 @@ function UploadPage() {
   async function handleUpload(e: React.FormEvent) {
     e.preventDefault();
     if (!selectedImage) return;
+    if (selectedImage.size > MAX_SIZE) {
+      toast.error("Image must be smaller than 5MB.");
+      return;
+    }
+    if (!ALLOWED_TYPES.includes(selectedImage.type)) {
+      toast.error("Unsupported file type. Please use JPG, PNG, or WebP.");
+      return;
+    }
 
     setIsUploading(true);
     try {
@@ -159,18 +180,20 @@ function UploadPage() {
         <div className="mt-8">
           <h2 className="text-lg font-semibold mb-4">Uploaded Images</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {images.filter((image) => image.key.startsWith("uploads/")).map((image) => (
-              <div
-                key={image.key}
-                className="overflow-hidden rounded-lg border bg-muted/30"
-              >
-                <img
-                  src={image.url}
-                  alt={image.key}
-                  className="aspect-square w-full object-cover"
-                />
-              </div>
-            ))}
+            {images
+              .filter((image) => image.key.startsWith("uploads/"))
+              .map((image) => (
+                <div
+                  key={image.key}
+                  className="overflow-hidden rounded-lg border bg-muted/30"
+                >
+                  <img
+                    src={image.url}
+                    alt={image.key}
+                    className="aspect-square w-full object-cover"
+                  />
+                </div>
+              ))}
           </div>
           {status === "CanLoadMore" && (
             <div className="mt-4 flex justify-center">

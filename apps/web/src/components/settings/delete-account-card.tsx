@@ -66,13 +66,13 @@ export default function DeleteAccountCard() {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogMedia className="bg-destructive/10 text-destructive">
+              <AlertDialogMedia>
                 <TriangleAlert className="size-5" />
               </AlertDialogMedia>
               <AlertDialogTitle>Delete your account?</AlertDialogTitle>
               <AlertDialogDescription>
-                This action is permanent and cannot be undone. All your data will
-                be deleted immediately.
+                This action is permanent and cannot be undone. All your data
+                will be deleted immediately.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

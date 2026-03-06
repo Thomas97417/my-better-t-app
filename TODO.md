@@ -61,3 +61,48 @@ partout
 delete-account-card.tsx
 [⚠️] Empty state component — pour les listes vides
 [✅] Meta/SEO tags — title et description par route
+
+Déjà implémenté
+
+- Auth complète (email/password, GitHub,
+  Google, verify email, reset password, sessions)
+- Settings (profil, avatar, email, password,
+  sessions, suppression compte)
+- Upload fichiers (Cloudflare R2)
+- Analytics (PostHog)
+- Emails transactionnels (Resend + react-email)
+- Landing page, dark mode, composants shadcn/ui
+
+Ce qu'il manque d'important
+
+Priorité haute
+
+1. Rate limiting — Protéger les endpoints
+   sensibles (auth, envoi d'emails) contre le
+   spam/brute force
+2. RBAC (rôles & permissions) — Admin vs user,
+   c'est quasi indispensable pour tout SaaS.
+   Better-Auth a un plugin admin pour ça
+3. Schema DB — Le schema Convex est vide, un
+   exemple de CRUD (ex: "notes" ou "projects")
+   montrerait le pattern pour les futurs devs
+
+Priorité moyenne
+
+5. SEO / sitemap / robots.txt — La landing page
+   n'a pas de meta OG, pas de sitemap
+6. Stripe / Billing — Quasi tout SaaS en a
+   besoin, même un squelette d'intégration serait
+   utile
+7. Notifications (in-app) — Un système basique
+   de notifications
+8. Onboarding flow — Un wizard post-inscription
+   pour compléter le profil
+
+Priorité basse (nice to have)
+
+9. Tests — Aucun test unitaire ou E2E pour
+   l'instant
+10. CI/CD pipeline — GitHub Actions pour
+    lint/typecheck/build
+11. i18n — Support multi-langue

@@ -13,16 +13,14 @@ import {
   SettingsCardHeader,
 } from "./settings-card";
 
-const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4 MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
 export default function ProfileImageCard({
   image,
 }: {
   image: string | undefined;
 }) {
-  const generateAvatarUploadUrl = useMutation(
-    api.r2.generateAvatarUploadUrl,
-  );
+  const generateAvatarUploadUrl = useMutation(api.r2.generateAvatarUploadUrl);
   const syncMetadata = useMutation(api.r2.syncMetadata);
   const fileInput = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -43,7 +41,7 @@ export default function ProfileImageCard({
         return;
       }
       if (file.size > MAX_FILE_SIZE) {
-        toast.error("Image must be smaller than 4 MB.");
+        toast.error("Image must be smaller than 5 MB.");
         return;
       }
 
